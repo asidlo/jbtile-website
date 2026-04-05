@@ -1,0 +1,102 @@
+name: Build Gallery Manifest
+
+on:
+  push:
+    paths:
+      - 'images/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate gallery-data.json
+        run: |
+          cat > /tmp/build-gallery.js << 'SCRIPT'
+          const fs = require('fs');
+          const path = require('path');
+
+          const imagesDir = path.join(process.cwd(), 'images');
+          const outputFile = path.join(process.cwd(), 'js', 'gallery-data.json');
+
+          // Image extensions to include
+          const imageExts = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
+
+          // Folders to skip (not gallery categories)
+          const skipFolders = new Set([]);
+
+          // Convert folder name to display name: "heated-floors" -> "Heated Floors"
+          function toDisplayName(folderName) {
+              return folderName
+                  .split('-')
+                  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ');
+          }
+
+          // Generate alt text from filename: "bathroom-01.jpg" -> "Bathroom 01"
+          function toAltText(filename, categoryName) {
+              const name = path.parse(filename).name
+                  .replace(/[-_]/g, ' ')
+                  .replace(/\b\w/g, c => c.toUpperCase());
+              return categoryName + ' - ' + name;
+          }
+
+          const categories = [];
+
+          // Scan subdirectories of images/
+          const entries = fs.readdirSync(imagesDir, { withFileTypes: true });
+          for (const entry of entries) {
+              if (!entry.isDirectory()) continue;
+              if (skipFolders.has(entry.name)) continue;
+
+              const categoryDir = path.join(imagesDir, entry.name);
+              const files = fs.readdirSync(categoryDir)
+                  .filter(f => imageExts.has(path.extname(f).toLowerCase()))
+                  .sort();
+
+              if (files.length === 0) continue;
+
+              const categoryName = toDisplayName(entry.name);
+              const images = files.map(f => ({
+                  src: 'images/' + entry.name + '/' + f,
+                  alt: toAltText(f, categoryName)
+              }));
+
+              categories.push({
+                  id: entry.name,
+                  name: categoryName,
+                  images: images
+              });
+          }
+
+          // Sort categories alphabetically
+          categories.sort((a, b) => a.name.localeCompare(b.name));
+
+          const output = { categories: categories };
+          fs.writeFileSync(outputFile, JSON.stringify(output, null, 2) + '\n');
+
+          console.log('Generated gallery-data.json:');
+          categories.forEach(c => {
+              console.log('  ' + c.name + ': ' + c.images.length + ' images');
+          });
+          console.log('Total: ' + categories.reduce((sum, c) => sum + c.images.length, 0) + ' images');
+          SCRIPT
+          node /tmp/build-gallery.js
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/gallery-data.json
+          if git diff --staged --quiet; then
+            echo "No changes to gallery data"
+          else
+            git commit -m "chore: update gallery manifest [auto-generated]"
+            git push
+          fi

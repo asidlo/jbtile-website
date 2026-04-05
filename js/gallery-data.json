@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {
+      "id": "backsplashes",
+      "name": "Backsplashes",
+      "images": [
+        { "src": "images/backsplashes/backsplash-01.jpg", "alt": "Custom tile backsplash installation" }
+      ]
+    },
+    {
+      "id": "bathrooms",
+      "name": "Bathrooms",
+      "images": [
+        { "src": "images/bathrooms/bathroom-01.jpg", "alt": "Custom bathroom tile design" },
+        { "src": "images/bathrooms/bathroom-02.jpg", "alt": "Bathroom tile installation" }
+      ]
+    },
+    {
+      "id": "heated-floors",
+      "name": "Heated Floors",
+      "images": [
+        { "src": "images/heated-floors/heated-floor-01.jpg", "alt": "Heated floor tile project" },
+        { "src": "images/heated-floors/heated-floor-02.jpg", "alt": "Heated floor installation" }
+      ]
+    }
+  ]
+}
