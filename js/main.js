@@ -12,6 +12,8 @@
     const menuToggle = document.getElementById('menu-toggle');
     const mobileNav = document.getElementById('mobile-nav');
     const galleryGrid = document.getElementById('gallery-grid');
+    const galleryMore = document.getElementById('gallery-more');
+    const galleryMoreBtn = document.getElementById('gallery-more-btn');
     const filtersContainer = document.querySelector('.gallery-filters');
     const pageLoader = document.getElementById('page-loader');
     const lightbox = document.getElementById('lightbox');
@@ -34,6 +36,11 @@
     // as an intentional moment rather than a flicker, even on fast loads.
     const LOADER_MIN_MS = 800;
     const loaderStart = (window.performance && performance.now) ? performance.now() : Date.now();
+
+    // Number of tiles shown before the "Show More" control; keeps the gallery
+    // from running long so visitors can reach the contact section quickly.
+    const GALLERY_PAGE_SIZE = 9;
+    let visibleCount = GALLERY_PAGE_SIZE;
 
     // ---- INIT ----
     document.addEventListener('DOMContentLoaded', init);
@@ -357,7 +364,12 @@
         });
 
         filteredImages = allImages.slice();
+        visibleCount = GALLERY_PAGE_SIZE;
         renderGallery(filteredImages);
+
+        if (galleryMoreBtn) {
+            galleryMoreBtn.addEventListener('click', showMoreImages);
+        }
     }
 
     function renderGallery(images) {
@@ -371,7 +383,11 @@
             item.setAttribute('role', 'button');
             item.setAttribute('tabindex', '0');
             item.setAttribute('aria-label', 'View ' + img.alt);
-            item.style.animationDelay = (index * 0.08) + 's';
+            item.style.animationDelay = ((index % GALLERY_PAGE_SIZE) * 0.08) + 's';
+
+            if (index >= visibleCount) {
+                item.classList.add('hidden');
+            }
 
             item.innerHTML =
                 '<img src="' + img.src + '" alt="' + img.alt + '" loading="lazy" width="600" height="400">' +
@@ -408,6 +424,26 @@
 
             galleryGrid.appendChild(item);
         });
+
+        updateMoreButton();
+    }
+
+    function showMoreImages() {
+        visibleCount += GALLERY_PAGE_SIZE;
+        var items = galleryGrid.querySelectorAll('.gallery-item.hidden');
+        var revealed = 0;
+        for (var i = 0; i < items.length && revealed < GALLERY_PAGE_SIZE; i++, revealed++) {
+            items[i].classList.remove('hidden');
+            items[i].classList.add('fade-in');
+            items[i].style.animationDelay = (revealed * 0.08) + 's';
+        }
+        updateMoreButton();
+    }
+
+    function updateMoreButton() {
+        if (!galleryMore) return;
+        var hasMore = filteredImages.length > visibleCount;
+        galleryMore.hidden = !hasMore;
     }
 
     function handleFilter(filter) {
@@ -418,6 +454,7 @@
                 return img.category === filter;
             });
         }
+        visibleCount = GALLERY_PAGE_SIZE;
         renderGallery(filteredImages);
     }
 
