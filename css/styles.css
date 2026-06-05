@@ -25,6 +25,7 @@
     --color-gold: #C79A4B;
     --color-gold-light: #E0BE78;
     --color-border: #DDE4EA;
+    --color-grid-line: #E3E8EE;
     --color-white: #FFFFFF;
     --color-overlay: rgba(16, 26, 38, 0.8);
     --color-overlay-heavy: rgba(16, 26, 38, 0.92);
@@ -71,6 +72,11 @@ body {
     line-height: 1.7;
     color: var(--color-text);
     background-color: var(--color-bg);
+    background-image:
+        linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: top left;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -553,6 +559,10 @@ h1, h2, h3 {
 .gallery {
     padding: var(--section-padding);
     background-color: var(--color-bg);
+    background-image:
+        linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
 }
 
 .gallery-filters {
