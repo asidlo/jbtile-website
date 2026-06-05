@@ -1,8 +1,8 @@
 /* ============================================
    JB TILE LLC — STYLES
    Design: Architectural Elegance
-   Typography: Fraunces (headings) + DM Sans (body)
-   Palette: Warm stone + gold accent
+   Typography: Arimo (Arial-metric, matches the logo) site-wide
+   Palette: Logo navy + gold on cool white
    ============================================ */
 
 /* ---------- RESET ---------- */
@@ -14,22 +14,24 @@
 
 /* ---------- DESIGN TOKENS ---------- */
 :root {
-    /* Colors */
-    --color-bg: #FAFAF9;
-    --color-surface: #F5F5F4;
-    --color-text: #1C1917;
-    --color-text-secondary: #78716C;
-    --color-accent: #92400E;
-    --color-accent-hover: #78350F;
-    --color-accent-light: #FEF3C7;
-    --color-border: #E7E5E4;
+    /* Colors — drawn from the logo (navy + gold on cool white) */
+    --color-bg: #F7F9FB;
+    --color-surface: #EDF1F5;
+    --color-text: #1B2A3A;
+    --color-text-secondary: #5B6B7B;
+    --color-accent: #3E6087;
+    --color-accent-hover: #314E70;
+    --color-accent-light: #DCE3E9;
+    --color-gold: #C79A4B;
+    --color-gold-light: #E0BE78;
+    --color-border: #DDE4EA;
     --color-white: #FFFFFF;
-    --color-overlay: rgba(12, 10, 9, 0.8);
-    --color-overlay-heavy: rgba(12, 10, 9, 0.92);
+    --color-overlay: rgba(16, 26, 38, 0.8);
+    --color-overlay-heavy: rgba(16, 26, 38, 0.92);
 
     /* Typography */
-    --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Arimo', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    --font-body: 'Arimo', Arial, 'Helvetica Neue', Helvetica, sans-serif;
 
     /* Spacing */
     --container-max: 1200px;
@@ -44,10 +46,10 @@
     --duration-fast: 0.25s;
 
     /* Elevation */
-    --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.06);
-    --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
-    --shadow-lg: 0 12px 40px rgba(28, 25, 23, 0.12);
-    --shadow-xl: 0 20px 60px rgba(28, 25, 23, 0.16);
+    --shadow-sm: 0 1px 3px rgba(27, 42, 58, 0.06);
+    --shadow-md: 0 4px 16px rgba(27, 42, 58, 0.08);
+    --shadow-lg: 0 12px 40px rgba(27, 42, 58, 0.12);
+    --shadow-xl: 0 20px 60px rgba(27, 42, 58, 0.16);
 
     /* Radius */
     --radius-sm: 0.375rem;
@@ -180,8 +182,26 @@ h1, h2, h3 {
                 box-shadow var(--duration) var(--ease);
 }
 
+/* Subtle top scrim keeps the logo & nav legible over the busy hero mosaic */
+.site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+        rgba(16, 26, 38, 0.45) 0%,
+        rgba(16, 26, 38, 0) 100%);
+    opacity: 1;
+    transition: opacity var(--duration) var(--ease);
+}
+
+.site-header.scrolled::before {
+    opacity: 0;
+}
+
 .site-header.scrolled {
-    background-color: rgba(250, 250, 249, 0.95);
+    background-color: rgba(247, 249, 251, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: var(--shadow-sm);
@@ -195,14 +215,19 @@ h1, h2, h3 {
 }
 
 .logo img {
-    height: 2.25rem;
+    height: 3rem;
     width: auto;
-    transition: filter var(--duration-fast) var(--ease);
+    transition: filter var(--duration-fast) var(--ease),
+                transform var(--duration-fast) var(--ease);
 }
 
-/* Logo badge — white background makes it readable on both dark hero & light scroll */
-.logo img {
-    border-radius: var(--radius-sm);
+/* Transparent logo — soft shadow gives separation on busy/dark hero backgrounds */
+.site-header:not(.scrolled) .logo img {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.logo:hover img {
+    transform: scale(1.03);
 }
 
 .desktop-nav {
@@ -407,32 +432,59 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-.hero-bg {
+/* Tiled mosaic background — parallax columns of project photos */
+.hero-tiles {
     position: absolute;
     inset: 0;
-    z-index: -2;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background-color: #0c1521; /* grout showing through the gaps */
+    overflow: hidden;
 }
 
-.hero-bg img {
+.hero-tiles-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Mobile shows 2 columns; extra columns reveal at wider breakpoints */
+.hero-tiles-col:nth-child(n+3) {
+    display: none;
+}
+
+.hero-tile {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    height: 30vh;
+    flex: 0 0 auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.78) saturate(0.9) contrast(1.02);
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    z-index: -1;
-    background: linear-gradient(
-        to bottom,
-        rgba(12, 10, 9, 0.4) 0%,
-        rgba(12, 10, 9, 0.55) 50%,
-        rgba(12, 10, 9, 0.75) 100%
-    );
+    z-index: 1;
+    background:
+        radial-gradient(ellipse 70% 56% at 50% 46%,
+            rgba(14, 22, 33, 0.62) 0%,
+            rgba(14, 22, 33, 0.22) 100%),
+        linear-gradient(to bottom,
+            rgba(14, 22, 33, 0.42) 0%,
+            rgba(14, 22, 33, 0.2) 42%,
+            rgba(14, 22, 33, 0.62) 100%);
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
     color: var(--color-white);
     padding-top: 6rem;
@@ -440,32 +492,36 @@ h1, h2, h3 {
 }
 
 .hero-label {
-    font-size: 0.8125rem;
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.72);
     margin-bottom: 1.5rem;
 }
 
 .hero-title {
-    font-size: clamp(2.75rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 7.5vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title em {
-    font-style: italic;
-    font-weight: 600;
+    font-style: normal;
+    color: var(--color-gold);
 }
 
 .hero-subtitle {
+    font-family: var(--font-heading);
     font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 32rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 34rem;
     margin: 0 auto 2.5rem;
     line-height: 1.6;
 }
@@ -476,6 +532,7 @@ h1, h2, h3 {
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
     color: rgba(255, 255, 255, 0.5);
     animation: scroll-bounce 2s var(--ease) infinite;
     transition: color var(--duration-fast);
@@ -571,8 +628,8 @@ h1, h2, h3 {
     inset: 0;
     background: linear-gradient(
         to top,
-        rgba(12, 10, 9, 0.6) 0%,
-        rgba(12, 10, 9, 0) 50%
+        rgba(16, 26, 38, 0.6) 0%,
+        rgba(16, 26, 38, 0) 50%
     );
     display: flex;
     align-items: flex-end;
@@ -783,7 +840,7 @@ h1, h2, h3 {
    ============================================ */
 .site-footer {
     padding: 2.5rem 0;
-    background-color: #0f0d0c;
+    background-color: #0e1825;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -796,15 +853,23 @@ h1, h2, h3 {
 }
 
 .footer-logo img {
-    height: 1.75rem;
+    height: 2.5rem;
     width: auto;
-    opacity: 0.6;
+    opacity: 0.85;
     transition: opacity var(--duration-fast);
-    border-radius: var(--radius-sm);
 }
 
 .footer-logo:hover img {
-    opacity: 0.85;
+    opacity: 1;
+}
+
+.footer-tagline {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-gold);
+    margin-top: -0.25rem;
 }
 
 .footer-text {
@@ -993,6 +1058,14 @@ h1, h2, h3 {
     .contact-cards {
         grid-template-columns: 1fr 1fr;
     }
+
+    .hero-tiles {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hero-tiles-col:nth-child(3) {
+        display: flex;
+    }
 }
 
 /* ============================================
@@ -1014,6 +1087,14 @@ h1, h2, h3 {
     .about-image-wrap::after {
         bottom: -1.5rem;
         right: -1.5rem;
+    }
+
+    .hero-tiles {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .hero-tiles-col:nth-child(4) {
+        display: flex;
     }
 }
 
@@ -1077,7 +1158,7 @@ h1, h2, h3 {
         padding: 2rem 0;
     }
 
-    .hero-bg,
+    .hero-tiles,
     .hero-overlay {
         display: none;
     }

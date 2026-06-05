@@ -20,7 +20,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
@@ -33,7 +33,7 @@
     <header class="site-header" id="site-header">
         <div class="container header-inner">
             <a href="#hero" class="logo" aria-label="JB Tile LLC - Home">
-                <img src="images/logo.png" alt="JB Tile, LLC" width="160" height="50">
+                <img src="images/logo.svg" alt="JB Tile, LLC" width="161" height="50">
             </a>
             <nav class="desktop-nav" aria-label="Main navigation">
                 <a href="#gallery">Gallery</a>
@@ -76,19 +76,49 @@
         <!-- HERO                                         -->
         <!-- ============================================ -->
         <section class="hero" id="hero">
-            <div class="hero-bg" aria-hidden="true">
-                <img src="images/hero.jpg" alt="" loading="eager">
+            <div class="hero-tiles" aria-hidden="true">
+                <div class="hero-tiles-col" data-speed="-0.12">
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/backsplashes/backsplash-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-02.jpg')"></span>
+                </div>
+                <div class="hero-tiles-col" data-speed="0.08">
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/backsplashes/backsplash-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                </div>
+                <div class="hero-tiles-col" data-speed="-0.16">
+                    <span class="hero-tile" style="background-image:url('images/backsplashes/backsplash-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/backsplashes/backsplash-01.jpg')"></span>
+                </div>
+                <div class="hero-tiles-col" data-speed="0.11">
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/bathrooms/bathroom-02.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/backsplashes/backsplash-01.jpg')"></span>
+                    <span class="hero-tile" style="background-image:url('images/heated-floors/heated-floor-02.jpg')"></span>
+                </div>
             </div>
             <div class="hero-overlay" aria-hidden="true"></div>
             <div class="container hero-content">
-                <p class="hero-label anim-fade-up">Est. 1998 · Atlanta, Georgia</p>
-                <h1 class="hero-title anim-fade-up anim-delay-1">
+                <h1 class="hero-title anim-fade-up">
                     Craftsmanship<br>in Every <em>Tile</em>
                 </h1>
-                <p class="hero-subtitle anim-fade-up anim-delay-2">Premium tile installation for backsplashes, bathrooms, heated floors, and more.</p>
-                <a href="#gallery" class="btn btn-primary anim-fade-up anim-delay-3">View Our Work</a>
+                <p class="hero-subtitle anim-fade-up anim-delay-1">Premium tile installation for backsplashes, bathrooms, heated floors, and more.</p>
+                <a href="#gallery" class="btn btn-primary anim-fade-up anim-delay-2">View Our Work</a>
             </div>
-            <a href="#gallery" class="scroll-indicator anim-fade-up anim-delay-4" aria-label="Scroll to gallery">
+            <a href="#gallery" class="scroll-indicator anim-fade-up anim-delay-3" aria-label="Scroll to gallery">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </a>
         </section>
@@ -178,8 +208,9 @@
     <footer class="site-footer">
         <div class="container footer-inner">
             <a href="#hero" class="footer-logo" aria-label="Back to top">
-                <img src="images/logo.png" alt="JB Tile, LLC" width="120" height="38">
+                <img src="images/logo.svg" alt="JB Tile, LLC" width="129" height="40">
             </a>
+            <p class="footer-tagline">Est. 1998 · Atlanta, Georgia</p>
             <p class="footer-text">&copy; <span id="footer-year">2026</span> JB Tile, LLC. All rights reserved.</p>
         </div>
     </footer>

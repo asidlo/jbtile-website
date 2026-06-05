@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 322 100" role="img" aria-label="JB Tile, LLC">
+  <defs>
+    <linearGradient id="goldgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E0BE78"/>
+      <stop offset="0.5" stop-color="#C79A4B"/>
+      <stop offset="1" stop-color="#A87C33"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(2,2)">
+  <!-- slate-blue square tile -->
+  <rect x="1.5" y="1.5" width="93.0" height="93.0" rx="2"
+        fill="#3E6087" stroke="#7d8896" stroke-width="2"/>
+  <!-- gold diamond frame (outer minus inner, evenodd) -->
+  <path fill-rule="evenodd" fill="url(#goldgrad)" stroke="#7d8896" stroke-width="1.4"
+        d="M 48.0,0.5 L 95.5,48.0 L 48.0,95.5 L 0.5,48.0 Z
+           M 48.0,16.5 L 16.5,48.0 L 48.0,79.5 L 79.5,48.0 Z"/>
+  <!-- light inner field -->
+  <path fill="#DCE3E9" stroke="#7d8896" stroke-width="0.9"
+        d="M 48.0,16.5 L 79.5,48.0 L 48.0,79.5 L 16.5,48.0 Z"/>
+  <!-- accent triangles at the four inner points -->
+  <path fill="#C9D5E0" d="M 48.0,16.5 L 41,23 L 55,23 Z"/>
+  <path fill="#C9D5E0" d="M 48.0,79.5 L 41,73 L 55,73 Z"/>
+  <path fill="#C9D5E0" d="M 16.5,48.0 L 23,41 L 23,55 Z"/>
+  <path fill="#C9D5E0" d="M 79.5,48.0 L 73,41 L 73,55 Z"/>
+  <!-- quartering cross -->
+  <path stroke="#9aa6b2" stroke-width="0.8"
+        d="M 48.0,16.5 L 48.0,79.5 M 16.5,48.0 L 79.5,48.0"/>
+  <!-- navy compass center -->
+  <path fill="#2f4d6e" d="M 48.0,41 L 55,48.0 L 48.0,55 L 41,48.0 Z"/>
+  <path stroke="#ffffff" stroke-width="0.9" d="M 48.0,42.5 L 48.0,53.5 M 42.5,48.0 L 53.5,48.0"/>
+  <circle cx="48.0" cy="48.0" r="1.5" fill="#ffffff"/>
+</g>
+  <g fill="#3E6087" transform="translate(114.0,62.0) scale(0.017053,-0.017053)"><path transform="translate(0,0)" d="M678 1466H973V538Q973 356 941 258Q898 130 785.0 52.5Q672 -25 487 -25Q270 -25 153.0 96.5Q36 218 35 453L314 485Q319 359 351 307Q399 228 497 228Q596 228 637.0 284.5Q678 341 678 519Z"/><path transform="translate(1139,0)" d="M150 1466H736Q910 1466 995.5 1451.5Q1081 1437 1148.5 1391.0Q1216 1345 1261.0 1268.5Q1306 1192 1306 1097Q1306 994 1250.5 908.0Q1195 822 1100 779Q1234 740 1306.0 646.0Q1378 552 1378 425Q1378 325 1331.5 230.5Q1285 136 1204.5 79.5Q1124 23 1006 10Q932 2 649 0H150ZM446 1222V883H640Q813 883 855 888Q931 897 974.5 940.5Q1018 984 1018 1055Q1018 1123 980.5 1165.5Q943 1208 869 1217Q825 1222 616 1222ZM446 639V247H720Q880 247 923 256Q989 268 1030.5 314.5Q1072 361 1072 439Q1072 505 1040.0 551.0Q1008 597 947.5 618.0Q887 639 685 639Z"/><path transform="translate(3187,0)" d="M479 0V1218H44V1466H1209V1218H775V0Z"/><path transform="translate(4438,0)" d="M147 1206V1466H428V1206ZM147 0V1062H428V0Z"/><path transform="translate(5007,0)" d="M147 0V1466H428V0Z"/><path transform="translate(5576,0)" d="M762 338 1042 291Q988 137 871.5 56.5Q755 -24 580 -24Q303 -24 170 157Q65 302 65 523Q65 787 203.0 936.5Q341 1086 552 1086Q789 1086 926.0 929.5Q1063 773 1057 450H353Q356 325 421.0 255.5Q486 186 583 186Q649 186 694.0 222.0Q739 258 762 338ZM778 622Q775 744 715.0 807.5Q655 871 569 871Q477 871 417 804Q357 737 358 622Z"/><path transform="translate(6715,0)" d="M140 281H421V80Q421 -42 400.0 -112.5Q379 -183 320.5 -239.0Q262 -295 172 -327L117 -211Q202 -183 238.0 -134.0Q274 -85 276 0H140Z"/><path transform="translate(7853,0)" d="M157 0V1454H453V247H1189V0Z"/><path transform="translate(9104,0)" d="M157 0V1454H453V247H1189V0Z"/><path transform="translate(10355,0)" d="M1087 539 1374 448Q1308 208 1154.5 91.5Q1001 -25 765 -25Q473 -25 285.0 174.5Q97 374 97 720Q97 1086 286.0 1288.5Q475 1491 783 1491Q1052 1491 1220 1332Q1320 1238 1370 1062L1077 992Q1051 1106 968.5 1172.0Q886 1238 768 1238Q605 1238 503.5 1121.0Q402 1004 402 742Q402 464 502.0 346.0Q602 228 762 228Q880 228 965.0 303.0Q1050 378 1087 539Z"/></g>
+</svg>
