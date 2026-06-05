@@ -7,6 +7,26 @@
         {
           "src": "images/backsplashes/backsplash-01.jpg",
           "alt": "Backsplashes - Backsplash 01"
+        },
+        {
+          "src": "images/backsplashes/backsplash-02.jpg",
+          "alt": "Backsplashes - Backsplash 02"
+        },
+        {
+          "src": "images/backsplashes/backsplash-03.jpg",
+          "alt": "Backsplashes - Backsplash 03"
+        },
+        {
+          "src": "images/backsplashes/backsplash-04.jpg",
+          "alt": "Backsplashes - Backsplash 04"
+        },
+        {
+          "src": "images/backsplashes/backsplash-05.jpg",
+          "alt": "Backsplashes - Backsplash 05"
+        },
+        {
+          "src": "images/backsplashes/backsplash-06.jpg",
+          "alt": "Backsplashes - Backsplash 06"
         }
       ]
     },
@@ -21,6 +41,90 @@
         {
           "src": "images/bathrooms/bathroom-02.jpg",
           "alt": "Bathrooms - Bathroom 02"
+        },
+        {
+          "src": "images/bathrooms/bathroom-03.jpg",
+          "alt": "Bathrooms - Bathroom 03"
+        },
+        {
+          "src": "images/bathrooms/bathroom-04.jpg",
+          "alt": "Bathrooms - Bathroom 04"
+        },
+        {
+          "src": "images/bathrooms/bathroom-05.jpg",
+          "alt": "Bathrooms - Bathroom 05"
+        },
+        {
+          "src": "images/bathrooms/bathroom-06.jpg",
+          "alt": "Bathrooms - Bathroom 06"
+        },
+        {
+          "src": "images/bathrooms/bathroom-07.jpg",
+          "alt": "Bathrooms - Bathroom 07"
+        },
+        {
+          "src": "images/bathrooms/bathroom-08.jpg",
+          "alt": "Bathrooms - Bathroom 08"
+        },
+        {
+          "src": "images/bathrooms/bathroom-09.jpg",
+          "alt": "Bathrooms - Bathroom 09"
+        },
+        {
+          "src": "images/bathrooms/bathroom-10.jpg",
+          "alt": "Bathrooms - Bathroom 10"
+        },
+        {
+          "src": "images/bathrooms/bathroom-11.jpg",
+          "alt": "Bathrooms - Bathroom 11"
+        },
+        {
+          "src": "images/bathrooms/bathroom-12.jpg",
+          "alt": "Bathrooms - Bathroom 12"
+        }
+      ]
+    },
+    {
+      "id": "fireplaces",
+      "name": "Fireplaces",
+      "images": [
+        {
+          "src": "images/fireplaces/fireplace-01.jpg",
+          "alt": "Fireplaces - Fireplace 01"
+        },
+        {
+          "src": "images/fireplaces/fireplace-02.jpg",
+          "alt": "Fireplaces - Fireplace 02"
+        },
+        {
+          "src": "images/fireplaces/fireplace-03.jpg",
+          "alt": "Fireplaces - Fireplace 03"
+        },
+        {
+          "src": "images/fireplaces/fireplace-04.jpg",
+          "alt": "Fireplaces - Fireplace 04"
+        },
+        {
+          "src": "images/fireplaces/fireplace-05.jpg",
+          "alt": "Fireplaces - Fireplace 05"
+        }
+      ]
+    },
+    {
+      "id": "floors",
+      "name": "Floors",
+      "images": [
+        {
+          "src": "images/floors/floor-01.jpg",
+          "alt": "Floors - Floor 01"
+        },
+        {
+          "src": "images/floors/floor-02.jpg",
+          "alt": "Floors - Floor 02"
+        },
+        {
+          "src": "images/floors/floor-03.jpg",
+          "alt": "Floors - Floor 03"
         }
       ]
     },
@@ -35,6 +139,108 @@
         {
           "src": "images/heated-floors/heated-floor-02.jpg",
           "alt": "Heated Floors - Heated Floor 02"
+        }
+      ]
+    },
+    {
+      "id": "kitchens",
+      "name": "Kitchens",
+      "images": [
+        {
+          "src": "images/kitchens/kitchen-01.jpg",
+          "alt": "Kitchens - Kitchen 01"
+        },
+        {
+          "src": "images/kitchens/kitchen-02.jpg",
+          "alt": "Kitchens - Kitchen 02"
+        },
+        {
+          "src": "images/kitchens/kitchen-03.jpg",
+          "alt": "Kitchens - Kitchen 03"
+        },
+        {
+          "src": "images/kitchens/kitchen-04.jpg",
+          "alt": "Kitchens - Kitchen 04"
+        },
+        {
+          "src": "images/kitchens/kitchen-05.jpg",
+          "alt": "Kitchens - Kitchen 05"
+        },
+        {
+          "src": "images/kitchens/kitchen-06.jpg",
+          "alt": "Kitchens - Kitchen 06"
+        }
+      ]
+    },
+    {
+      "id": "patios",
+      "name": "Patios",
+      "images": [
+        {
+          "src": "images/patios/patio-01.jpg",
+          "alt": "Patios - Patio 01"
+        },
+        {
+          "src": "images/patios/patio-02.jpg",
+          "alt": "Patios - Patio 02"
+        },
+        {
+          "src": "images/patios/patio-03.jpg",
+          "alt": "Patios - Patio 03"
+        }
+      ]
+    },
+    {
+      "id": "showers",
+      "name": "Showers",
+      "images": [
+        {
+          "src": "images/showers/shower-01.jpg",
+          "alt": "Showers - Shower 01"
+        },
+        {
+          "src": "images/showers/shower-02.jpg",
+          "alt": "Showers - Shower 02"
+        },
+        {
+          "src": "images/showers/shower-03.jpg",
+          "alt": "Showers - Shower 03"
+        },
+        {
+          "src": "images/showers/shower-04.jpg",
+          "alt": "Showers - Shower 04"
+        },
+        {
+          "src": "images/showers/shower-05.jpg",
+          "alt": "Showers - Shower 05"
+        },
+        {
+          "src": "images/showers/shower-06.jpg",
+          "alt": "Showers - Shower 06"
+        },
+        {
+          "src": "images/showers/shower-07.jpg",
+          "alt": "Showers - Shower 07"
+        },
+        {
+          "src": "images/showers/shower-08.jpg",
+          "alt": "Showers - Shower 08"
+        },
+        {
+          "src": "images/showers/shower-09.jpg",
+          "alt": "Showers - Shower 09"
+        },
+        {
+          "src": "images/showers/shower-10.jpg",
+          "alt": "Showers - Shower 10"
+        },
+        {
+          "src": "images/showers/shower-11.jpg",
+          "alt": "Showers - Shower 11"
+        },
+        {
+          "src": "images/showers/shower-12.jpg",
+          "alt": "Showers - Shower 12"
         }
       ]
     }
