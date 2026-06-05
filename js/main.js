@@ -36,6 +36,7 @@
         initHeader();
         initMobileNav();
         initScrollAnimations();
+        initHeroParallax();
         initSmoothScroll();
         initFooterYear();
         loadGallery();
@@ -100,6 +101,89 @@
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.setAttribute('aria-label', 'Open menu');
         document.body.classList.remove('no-scroll');
+    }
+
+    // ============================================
+    // HERO — tiled mosaic parallax
+    // ============================================
+    function initHeroParallax() {
+        var hero = document.getElementById('hero');
+        if (!hero) return;
+        var tiles = hero.querySelector('.hero-tiles');
+        if (!tiles) return;
+        var cols = Array.prototype.slice.call(tiles.querySelectorAll('.hero-tiles-col'));
+        if (!cols.length) return;
+
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var saveData = !!(navigator.connection && navigator.connection.saveData);
+        // Per-column base offset fraction — staggers row seams for a masonry feel
+        var baseFracs = [0.34, 0.58, 0.42, 0.6];
+
+        var colData = [];
+        var enabled = false;
+        var ticking = false;
+
+        function measure() {
+            colData = cols.map(function (el, i) {
+                var slack = el.scrollHeight - el.clientHeight;
+                if (slack < 0) slack = 0;
+                return {
+                    el: el,
+                    visible: el.offsetParent !== null,
+                    slack: slack,
+                    base: -slack * baseFracs[i % baseFracs.length],
+                    speed: parseFloat(el.getAttribute('data-speed')) || 0
+                };
+            });
+        }
+
+        function render() {
+            ticking = false;
+            var y = window.scrollY || window.pageYOffset || 0;
+            for (var i = 0; i < colData.length; i++) {
+                var c = colData[i];
+                if (!c.visible || c.slack === 0) {
+                    c.el.style.transform = 'translate3d(0,0,0)';
+                    continue;
+                }
+                var t = c.base + y * c.speed;
+                // Clamp within [-slack, 0] so tile edges are never revealed
+                if (t > 0) t = 0;
+                else if (t < -c.slack) t = -c.slack;
+                c.el.style.transform = 'translate3d(0,' + t.toFixed(1) + 'px,0)';
+            }
+        }
+
+        function onScroll() {
+            if (!enabled || ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(render);
+        }
+
+        function reset() {
+            cols.forEach(function (el) { el.style.transform = 'translate3d(0,0,0)'; });
+        }
+
+        function evaluate() {
+            var shouldEnable = window.innerWidth >= 768 && !prefersReduced && !saveData;
+            if (shouldEnable) {
+                enabled = true;
+                measure();
+                render();
+            } else {
+                enabled = false;
+                reset();
+            }
+        }
+
+        evaluate();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(evaluate, 150);
+        }, { passive: true });
     }
 
     // ============================================

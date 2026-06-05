@@ -81,7 +81,7 @@ All three platforms support custom domains with free SSL:
 - **HTML5** — Semantic markup
 - **CSS3** — Custom properties, CSS Grid, Flexbox, CSS columns for masonry
 - **Vanilla JavaScript** — Zero dependencies
-- **Google Fonts** — Fraunces + DM Sans
+- **Google Fonts** — Arimo (Arial-metric, matches the logo lettering)
 - **GitHub Actions** — Auto-generates gallery manifest when images are added
 
 ## Project Structure
@@ -93,7 +93,8 @@ All three platforms support custom domains with free SSL:
 │   ├── main.js             # Gallery, lightbox, navigation, animations
 │   └── gallery-data.json   # Auto-generated image manifest
 ├── images/
-│   ├── logo.png            # Company logo
+│   ├── logo.svg            # Company logo (vector, used in header & footer)
+│   ├── logo.png            # Company logo (raster, used as favicon)
 │   ├── hero.png            # Hero background image
 │   ├── about.png           # About section image
 │   ├── backsplashes/       # Gallery: Backsplash projects
