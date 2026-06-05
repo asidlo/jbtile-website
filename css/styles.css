@@ -714,32 +714,6 @@ h1, h2, h3 {
     align-items: center;
 }
 
-.about-image-wrap {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-}
-
-.about-image {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-}
-
-.about-image-wrap::after {
-    content: '';
-    position: absolute;
-    bottom: -1rem;
-    right: -1rem;
-    width: 60%;
-    height: 60%;
-    border: 2px solid var(--color-accent);
-    border-radius: var(--radius-lg);
-    z-index: -1;
-    opacity: 0.3;
-}
-
 .about-text {
     margin-bottom: 2rem;
 }
@@ -1203,7 +1177,6 @@ h1, h2, h3 {
     }
 
     .about-inner {
-        grid-template-columns: 1fr 1fr;
         gap: 4rem;
     }
 
@@ -1234,11 +1207,6 @@ h1, h2, h3 {
 
     .about-inner {
         gap: 5rem;
-    }
-
-    .about-image-wrap::after {
-        bottom: -1.5rem;
-        right: -1.5rem;
     }
 
     .hero-tiles {
