@@ -669,6 +669,16 @@ h1, h2, h3 {
     animation: fadeInUp 0.4s var(--ease) both;
 }
 
+.gallery-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.gallery-more[hidden] {
+    display: none;
+}
+
 /* ============================================
    ABOUT
    ============================================ */
