@@ -15,6 +15,7 @@
     const galleryMore = document.getElementById('gallery-more');
     const galleryMoreBtn = document.getElementById('gallery-more-btn');
     const filtersContainer = document.querySelector('.gallery-filters');
+    const pageLoader = document.getElementById('page-loader');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCounter = document.getElementById('lightbox-counter');
@@ -30,6 +31,11 @@
     let lightboxIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
+
+    // Keep the brand loader on screen for at least this long so it registers
+    // as an intentional moment rather than a flicker, even on fast loads.
+    const LOADER_MIN_MS = 800;
+    const loaderStart = (window.performance && performance.now) ? performance.now() : Date.now();
 
     // Number of tiles shown before the "Show More" control; keeps the gallery
     // from running long so visitors can reach the contact section quickly.
@@ -267,6 +273,19 @@
     // GALLERY — load data, build grid, filter
     // ============================================
     function loadGallery() {
+        showGallerySkeletons();
+
+        // Reveal the page once the shell + gallery skeletons are painted —
+        // NOT after the photo fetch. This lets the shimmering skeletons (rather
+        // than the full-screen loader) cover the actual gallery load. We hold
+        // the loader for a minimum duration so it reads as a deliberate brand
+        // moment, then fade it out to reveal the hero + skeletons underneath.
+        var now = (window.performance && performance.now) ? performance.now() : Date.now();
+        var remaining = Math.max(0, LOADER_MIN_MS - (now - loaderStart));
+        window.setTimeout(function () {
+            window.requestAnimationFrame(hidePageLoader);
+        }, remaining);
+
         fetch('js/gallery-data.json')
             .then(function (res) { return res.json(); })
             .then(function (data) {
@@ -279,6 +298,30 @@
                 console.error('Failed to load gallery data:', err);
                 galleryGrid.innerHTML = '<p style="text-align:center;color:var(--color-text-secondary);padding:2rem;">Gallery loading...</p>';
             });
+    }
+
+    // Inject themed skeleton tiles that mirror the masonry layout so there's
+    // no layout shift when the real photos swap in.
+    function showGallerySkeletons() {
+        if (!galleryGrid) { return; }
+        var heights = [240, 320, 200, 280, 360, 220, 300, 260, 340];
+        var html = '';
+        for (var i = 0; i < heights.length; i++) {
+            html += '<div class="gallery-skeleton" aria-hidden="true" style="height:' +
+                heights[i] + 'px;animation-delay:' + (i * 0.08).toFixed(2) + 's;"></div>';
+        }
+        galleryGrid.setAttribute('aria-busy', 'true');
+        galleryGrid.innerHTML = html;
+    }
+
+    // Fade the page loader out, then take it out of the layout entirely.
+    function hidePageLoader() {
+        if (!pageLoader) { return; }
+        pageLoader.classList.add('is-hidden');
+        var done = function () { pageLoader.classList.add('is-done'); };
+        pageLoader.addEventListener('transitionend', done, { once: true });
+        // Fallback in case the transition doesn't fire (e.g. reduced motion).
+        window.setTimeout(done, 700);
     }
 
     function buildFilterButtons(categories) {
@@ -330,10 +373,11 @@
     }
 
     function renderGallery(images) {
+        galleryGrid.removeAttribute('aria-busy');
         galleryGrid.innerHTML = '';
         images.forEach(function (img, index) {
             var item = document.createElement('div');
-            item.className = 'gallery-item fade-in';
+            item.className = 'gallery-item fade-in is-loading';
             item.setAttribute('data-category', img.category);
             item.setAttribute('data-index', index);
             item.setAttribute('role', 'button');
@@ -350,6 +394,23 @@
                 '<div class="gallery-item-overlay" aria-hidden="true">' +
                 '<span class="gallery-item-category">' + img.categoryName + '</span>' +
                 '</div>';
+
+            // Keep the tile shimmering until its photo actually loads, then
+            // fade the image in. Removes the blank gap on slow connections
+            // where the JSON resolves long before the images download.
+            var photo = item.querySelector('img');
+            if (photo) {
+                var markLoaded = function () {
+                    item.classList.remove('is-loading');
+                    item.classList.add('is-loaded');
+                };
+                if (photo.complete && photo.naturalWidth > 0) {
+                    markLoaded();
+                } else {
+                    photo.addEventListener('load', markLoaded, { once: true });
+                    photo.addEventListener('error', markLoaded, { once: true });
+                }
+            }
 
             item.addEventListener('click', function () {
                 openLightbox(index);
