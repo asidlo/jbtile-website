@@ -1030,6 +1030,117 @@ h1, h2, h3 {
 }
 
 /* ============================================
+   PAGE LOADER — tile-themed brand mark
+   ============================================ */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: var(--color-bg);
+    opacity: 1;
+    transition: opacity var(--duration) var(--ease);
+}
+
+/* Fade out, then remove from the layout/interaction layer */
+.page-loader.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.page-loader.is-done {
+    display: none;
+}
+
+/* 3x3 grid of ceramic tiles */
+.page-loader-mark {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: 84px;
+    height: 84px;
+}
+
+.loader-tile {
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--color-accent-light);
+    opacity: 0.25;
+    transform: scale(0.85);
+    animation: tileLay 1.4s var(--ease) infinite;
+}
+
+/* Sequential "tile-laying" stagger — diagonal sweep across the grid */
+.loader-tile:nth-child(1) { animation-delay: 0s; }
+.loader-tile:nth-child(2) { animation-delay: 0.12s; }
+.loader-tile:nth-child(3) { animation-delay: 0.24s; }
+.loader-tile:nth-child(4) { animation-delay: 0.12s; }
+.loader-tile:nth-child(5) { animation-delay: 0.24s; }
+.loader-tile:nth-child(6) { animation-delay: 0.36s; }
+.loader-tile:nth-child(7) { animation-delay: 0.24s; }
+.loader-tile:nth-child(8) { animation-delay: 0.36s; }
+.loader-tile:nth-child(9) { animation-delay: 0.48s; }
+
+@keyframes tileLay {
+    0% {
+        opacity: 0.2;
+        transform: scale(0.85);
+        background-color: var(--color-accent-light);
+    }
+    35% {
+        opacity: 1;
+        transform: scale(1);
+        background-color: var(--color-accent);
+    }
+    55% {
+        background-color: var(--color-gold);
+    }
+    100% {
+        opacity: 0.2;
+        transform: scale(0.85);
+        background-color: var(--color-accent-light);
+    }
+}
+
+.page-loader-text {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+}
+
+/* ============================================
+   GALLERY SKELETON — shimmering placeholder tiles
+   ============================================ */
+.gallery-skeleton {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--color-surface);
+    background-image: linear-gradient(
+        90deg,
+        var(--color-surface) 0%,
+        var(--color-accent-light) 50%,
+        var(--color-surface) 100%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: skeletonShimmer 1.6s linear infinite;
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 150% 0; }
+    100% { background-position: -150% 0; }
+}
+
+/* ============================================
    RESPONSIVE — TABLET (768px+)
    ============================================ */
 @media (min-width: 768px) {
@@ -1138,6 +1249,24 @@ h1, h2, h3 {
     .gallery-item.fade-in {
         animation: none;
         opacity: 1;
+    }
+
+    /* Loader: keep a gentle static state, no looping motion */
+    .loader-tile {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        background-color: var(--color-accent);
+    }
+
+    .page-loader-mark .loader-tile:nth-child(even) {
+        background-color: var(--color-gold);
+    }
+
+    .gallery-skeleton {
+        animation: none;
+        background-image: none;
+        background-color: var(--color-surface);
     }
 }
 

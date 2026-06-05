@@ -13,6 +13,7 @@
     const mobileNav = document.getElementById('mobile-nav');
     const galleryGrid = document.getElementById('gallery-grid');
     const filtersContainer = document.querySelector('.gallery-filters');
+    const pageLoader = document.getElementById('page-loader');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCounter = document.getElementById('lightbox-counter');
@@ -260,6 +261,7 @@
     // GALLERY — load data, build grid, filter
     // ============================================
     function loadGallery() {
+        showGallerySkeletons();
         fetch('js/gallery-data.json')
             .then(function (res) { return res.json(); })
             .then(function (data) {
@@ -271,7 +273,34 @@
             .catch(function (err) {
                 console.error('Failed to load gallery data:', err);
                 galleryGrid.innerHTML = '<p style="text-align:center;color:var(--color-text-secondary);padding:2rem;">Gallery loading...</p>';
+            })
+            .then(function () {
+                hidePageLoader();
             });
+    }
+
+    // Inject themed skeleton tiles that mirror the masonry layout so there's
+    // no layout shift when the real photos swap in.
+    function showGallerySkeletons() {
+        if (!galleryGrid) { return; }
+        var heights = [240, 320, 200, 280, 360, 220, 300, 260, 340];
+        var html = '';
+        for (var i = 0; i < heights.length; i++) {
+            html += '<div class="gallery-skeleton" aria-hidden="true" style="height:' +
+                heights[i] + 'px;animation-delay:' + (i * 0.08).toFixed(2) + 's;"></div>';
+        }
+        galleryGrid.setAttribute('aria-busy', 'true');
+        galleryGrid.innerHTML = html;
+    }
+
+    // Fade the page loader out, then take it out of the layout entirely.
+    function hidePageLoader() {
+        if (!pageLoader) { return; }
+        pageLoader.classList.add('is-hidden');
+        var done = function () { pageLoader.classList.add('is-done'); };
+        pageLoader.addEventListener('transitionend', done, { once: true });
+        // Fallback in case the transition doesn't fire (e.g. reduced motion).
+        window.setTimeout(done, 700);
     }
 
     function buildFilterButtons(categories) {
@@ -318,6 +347,7 @@
     }
 
     function renderGallery(images) {
+        galleryGrid.removeAttribute('aria-busy');
         galleryGrid.innerHTML = '';
         images.forEach(function (img, index) {
             var item = document.createElement('div');
