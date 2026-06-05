@@ -616,7 +616,28 @@ h1, h2, h3 {
 .gallery-item img {
     width: 100%;
     display: block;
-    transition: transform var(--duration) var(--ease);
+    opacity: 0;
+    transition: transform var(--duration) var(--ease),
+                opacity var(--duration) var(--ease);
+}
+
+/* Each tile shimmers until its own photo has downloaded, then the image
+   fades in. Pairs with loading="lazy": below-fold tiles keep shimmering
+   until scrolled into view and loaded. */
+.gallery-item.is-loading {
+    background-image: linear-gradient(
+        90deg,
+        var(--color-surface) 0%,
+        var(--color-accent-light) 50%,
+        var(--color-surface) 100%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: skeletonShimmer 1.6s linear infinite;
+}
+
+.gallery-item.is-loaded img {
+    opacity: 1;
 }
 
 .gallery-item:hover img {
@@ -1267,6 +1288,16 @@ h1, h2, h3 {
         animation: none;
         background-image: none;
         background-color: var(--color-surface);
+    }
+
+    .gallery-item.is-loading {
+        animation: none;
+        background-image: none;
+        background-color: var(--color-surface);
+    }
+
+    .gallery-item img {
+        opacity: 1;
     }
 }
 
