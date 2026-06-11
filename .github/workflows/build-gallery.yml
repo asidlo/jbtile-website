@@ -39,12 +39,13 @@ jobs:
                   .join(' ');
           }
 
-          // Generate alt text from filename: "bathroom-01.jpg" -> "Bathroom 01"
+          // Generate descriptive, SEO-friendly alt text from filename:
+          // "bathroom-01.jpg" -> "Bathroom 01 — tile installation by JB Tile, LLC in Atlanta, GA"
           function toAltText(filename, categoryName) {
               const name = path.parse(filename).name
                   .replace(/[-_]/g, ' ')
                   .replace(/\b\w/g, c => c.toUpperCase());
-              return categoryName + ' - ' + name;
+              return name + ' — tile installation by JB Tile, LLC in Atlanta, GA';
           }
 
           const categories = [];
